@@ -6,3 +6,4 @@
 !start.sh
 
 !plugins/Harbor/config.yml
+!plugins/GrievPreventionData/config.yml
