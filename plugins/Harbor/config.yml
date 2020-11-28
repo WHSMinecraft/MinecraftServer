@@ -1,0 +1,73 @@
+# Harbor - Sleep mechanics enhancement plugin
+# An open-source project by TechToolbox (@nkomarn)
+# https://github.com/nkomarn/Harbor
+
+# Important note regarding Essentials:
+# Please make sure you negate the permission "essentials.sleepingignored" to
+# prevent issues with Harbor and server operators when running Essentials.
+
+night-skip:
+  enabled: true # Skip the night if a percentage of the players in a world are sleeping
+  percentage: 0 # Percentage of players required to be sleeping to skip the night (0 - 100)
+  time-rate: 25 # The amount of ticks added to the current time every tick when skipping the night
+  daytime-ticks: 1200 # The time in ticks that Harbor considers day
+  instant-skip: false # Instantly skip the night when the percentage threshold is reached instead of showing the full animation
+  proportional-acceleration: true # Increase the night skipping speed based on the amount of sleeping players
+  clear-rain: true # Clear rain (if it's raining) when the night is skipped
+  clear-thunder: true # Clear thunder (if it's thundering) when the night is skipped
+  reset-phantom-statistic: true # Treats everyone online as if they have slept in the last 3 days after the night is skipped (check out /gamerule doInsomnia on 1.15+)
+
+exclusions:
+  ignored-permission: true # Exclude players with the permission "harbor.ignored" from the sleeping count
+  exclude-adventure: true # Exclude players in adventure mode from the sleeping count
+  exclude-creative: true # Exclude players in creative mode from the sleeping count
+  exclude-spectator: true # Exclude players in spectator mode from the sleeping count
+  exclude-vanished: true # Exclude vanished players from the sleeping count
+
+# Detect AFK players and automatically remove them from the required sleeping count
+# Essentials API is used for AFK detection when available- otherwise a fallback system is used
+afk-detection:
+  enabled: true
+  timeout: 15 # Time in minutes until a player is considered AFK
+
+# Blacklist for worlds- Harbor will ignore these worlds
+blacklisted-worlds:
+  - "world_nether"
+  - "world_the_end"
+whitelist-mode: false # Will treat the above list as a whitelist instead of a blacklist
+
+messages:
+  chat:
+    enabled: true
+    message-cooldown: 5 # The amount of time in seconds before a player can send another bed enter or leave message
+    player-sleeping: "&e[player] schläft nun."
+    player-left-bed: "&e[player] ist aufgestanden."
+    night-skipping:
+      - "&eNacht wird beschleunigt."
+      - "&eÜberspringe die Nacht."
+    night-skipped:
+      - "&eDie Nacht wurde übersprungen"
+      - "&eAhhh, endlich Morgen."
+      - "&eArghh, draußen ist es so hell."
+      - "&eRise and shine."
+  actionbar:
+    enabled: false
+    players-sleeping: "&e[sleeping] von [needed] Spieler schlafen ([more] werden noch benötigt.)"
+    night-skipping: "&eAlle schlafen - schöne Träume!"
+  bossbar:
+    enabled: false
+    players-sleeping:
+      message: "&f&l[sleeping] von [needed] Spieler schlafen"
+      color: BLUE
+    night-skipping:
+      message: "&f&lGenug Spieler schlafen, schöne Träume!"
+      color: GREEN
+  miscellaneous:
+    chat-prefix: "&8&l(&6&lHarbor&8&l)&f "
+    unrecognized-command: "Unbekannter Befehl."
+
+# Spooky internal controls
+version: 1.6.3
+interval: 1
+metrics: true
+debug: false

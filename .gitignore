@@ -4,3 +4,5 @@
 !spigot.yml
 !paper.yml
 !start.sh
+
+!plugins/Harbor/config.yml
