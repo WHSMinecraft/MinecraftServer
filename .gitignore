@@ -7,3 +7,4 @@
 
 !plugins/Harbor/config.yml
 !plugins/GrievPreventionData/config.yml
+!plugins/Plan/config.yml
