@@ -75,8 +75,8 @@ GriefPrevention:
       world_nether: true
       world_the_end: true
     ProtectFreshSpawns: true
-    PunishLogout: true
-    CombatTimeoutSeconds: 15
+    PunishLogout: false
+    CombatTimeoutSeconds: 8
     AllowCombatItemDrop: false
     BlockedSlashCommands: /home;/vanish;/spawn;/tpa
     ProtectPlayersInLandClaims:
@@ -102,7 +102,7 @@ GriefPrevention:
   BlockSurfaceOtherExplosions: true
   LimitSkyTrees: true
   LimitTreeGrowth: false
-  PistonMovement: EVERYWHERE
+  PistonMovement: EVERYWHERE_SIMPLE
   PistonExplosionSound: true
   FireSpreads: false
   FireDestroys: false
