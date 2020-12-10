@@ -1,0 +1,166 @@
+#!/bin/bash
+
+# Modified from https://aur.archlinux.org/cgit/aur.git/tree/minecraftd.sh?h=minecraft-server
+# Copyright (c) Gordian Edenhofer <gordian.edenhofer@gmail.com>
+#
+# Ruben Ollesch
+
+
+set -e
+
+# Set working directory just to be sure
+cd /home/whsminecraft/MinecraftServer/
+
+SCREEN_NAME=MCServer
+
+BACKUP_PATHS="world world_nether world_the_end plugins/GriefPreventionData/ClaimData plugins/GriefPreventionData/PlayerData"
+
+
+
+game_command() {
+	screen -S ${SCREEN_NAME} -X stuff "$(printf "%s\r" "$*")"
+}
+
+server_start() {
+	echo Starting server...
+	screen -dmS ${SCREEN_NAME} -l /bin/bash -c ./start.sh
+}
+
+server_stop() {
+	echo Shutting down server...
+	screen -S ${SCREEN_NAME} -X stuff '\003'
+
+	for i in {1..100}; do
+		if ! screen -S "${SCREEN_NAME}" -Q select . > /dev/null; then
+			echo "Server shut down successfully."
+			break
+		fi
+
+		if [[ $i -eq 100 ]]; then
+			echo "Timed out while shutting down server."
+			return 1
+		fi
+
+		sleep 0.1
+	done
+}
+
+
+# Run the given comman at the game server console
+server_command() {
+	if [[ $# -lt 1 ]]; then
+		>&2 echo "No server command specified. Try 'help' for a list of commands."
+		exit 1
+	fi
+
+	if screen -S "${SCREEN_NAME}" -Q select . > /dev/null; then
+		screen -S ${SCREEN_NAME} -X log on
+		game_command $*
+		sleep 0.3
+		screen -S ${SCREEN_NAME} -X log off
+		cat screenlog.0
+		rm screenlog.0 
+	else
+		echo "There is no ${SCREEN_NAME} session to connect to."
+	fi
+}
+
+# Enter the screen game session
+server_console() {
+	if screen -S "${SCREEN_NAME}" -Q select . > /dev/null; then
+		screen -r ${SCREEN_NAME}
+	else
+		echo "There is no ${SCREEN_NAME} session to connect to."
+	fi
+}
+
+# Create and upload a backup
+server_backup() {
+	backup_name="BACKUP_$(date +%Y-%m-%d_%H:%M:%S).zip"
+
+	game_command save-off
+	game_command save-all
+	sleep 3
+	sync
+	zip -r ${backup_name} ${BACKUP_PATHS}
+	game_command save-on
+
+	aws s3 cp ${backup_name} s3://whsminecraft-backups
+	rm ${backup_name}
+}
+
+# Restore the server from a selected backup
+server_restore() {
+	select bk in $(aws s3 ls s3://whsminecraft-backups | awk '{ print $4 }'); do
+		if [ -n "$bk" ]; then
+			echo "$bk selected"
+			break
+		else
+			echo "Please select a valid number from the list"
+		fi;
+	done;
+	aws s3 cp "s3://whsminecraft-backups/$bk" .
+
+	server_stop
+	rm -rf ${BACKUP_PATHS}
+	unzip "$bk"
+	rm "$bk"
+	server_start
+}
+
+# Help function, no arguments required
+help() {
+	cat <<-EOF
+	Usage: minecraft <command>
+
+	Commands:
+	    start			Start the server in a Screen session
+	    stop			Stop the server
+
+	    backup              	Backup the world data
+	    restore			Select a backup to restore and restart the server
+
+	    command|cmd <command>    	Run the given command at the server console
+	    console              	Enter the server console through a screen session
+
+	EOF
+}
+
+case "${1:-}" in
+	start)
+	server_start
+	;;
+
+	stop)
+	server_stop
+	;;
+
+	console)
+	server_console
+	;;
+
+	command|cmd)
+	server_command "${@:2}"
+	;;
+
+	backup)
+	server_backup
+	;;
+
+	restore)
+	server_restore
+	;;
+
+	-h|--help)
+	help
+	exit 0
+	;;
+
+	*)
+	help
+	exit 1
+	;;
+esac
+
+exit 0
+
