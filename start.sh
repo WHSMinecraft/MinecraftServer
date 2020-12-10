@@ -7,7 +7,7 @@ cd "${0%/*}"
 
 
 # Java uses additional memory on top of this value
-RAM=10G
+RAM=32G
 
 
 # Using aikar's flags
