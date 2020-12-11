@@ -91,7 +91,8 @@ server_backup() {
 
 # Restore the server from a selected backup
 server_restore() {
-	select bk in $(aws s3 ls s3://whsminecraft-backups | awk '{ print $4 }'); do
+	IFS=$'\n'
+	select bk in $(aws s3 ls s3://whsminecraft-backups | awk '{$1=$2=$3=""; print $0}' | sed 's/^[ \t]*//'); do
 		if [ -n "$bk" ]; then
 			echo "$bk selected"
 			break
