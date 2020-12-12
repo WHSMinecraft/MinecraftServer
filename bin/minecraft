@@ -11,27 +11,27 @@ set -e
 # Set working directory just to be sure
 cd /home/whsminecraft/MinecraftServer/
 
-SCREEN_NAME=MCServer
+screen_name=MCServer
 
-BACKUP_PATHS="world world_nether world_the_end plugins/GriefPreventionData/ClaimData plugins/GriefPreventionData/PlayerData"
+backup_paths=(world world_nether world_the_end plugins/GriefPreventionData/ClaimData plugins/GriefPreventionData/PlayerData)
 
 
 
 game_command() {
-	screen -S ${SCREEN_NAME} -X stuff "$(printf "%s\r" "$*")"
+	screen -S "$screen_name" -X stuff "$(printf "%s\r" "$*")"
 }
 
 server_start() {
 	echo Starting server...
-	screen -dmS ${SCREEN_NAME} -l /bin/bash -c ./start.sh
+	screen -dmS "$screen_name" -l /bin/bash -c ./start.sh
 }
 
 server_stop() {
 	echo Shutting down server...
-	screen -S ${SCREEN_NAME} -X stuff '\003'
+	screen -S "$screen_name" -X stuff '\003'
 
 	for i in {1..100}; do
-		if ! screen -S "${SCREEN_NAME}" -Q select . > /dev/null; then
+		if ! screen -S "$screen_name" -Q select . > /dev/null; then
 			echo "Server shut down successfully."
 			break
 		fi
@@ -53,24 +53,24 @@ server_command() {
 		exit 1
 	fi
 
-	if screen -S "${SCREEN_NAME}" -Q select . > /dev/null; then
-		screen -S ${SCREEN_NAME} -X log on
+	if screen -S "$screen_name" -Q select . > /dev/null; then
+		screen -S "$screen_name" -X log on
 		game_command $*
 		sleep 0.3
-		screen -S ${SCREEN_NAME} -X log off
+		screen -S "$screen_name" -X log off
 		cat screenlog.0
 		rm screenlog.0 
 	else
-		echo "There is no ${SCREEN_NAME} session to connect to."
+		echo "There is no $screen_name session to connect to."
 	fi
 }
 
 # Enter the screen game session
 server_console() {
-	if screen -S "${SCREEN_NAME}" -Q select . > /dev/null; then
-		screen -r ${SCREEN_NAME}
+	if screen -S "$screen_name" -Q select . > /dev/null; then
+		screen -r $screen_name
 	else
-		echo "There is no ${SCREEN_NAME} session to connect to."
+		echo "There is no $screen_name session to connect to."
 	fi
 }
 
@@ -82,11 +82,11 @@ server_backup() {
 	game_command save-all
 	sleep 3
 	sync
-	zip -r ${backup_name} ${BACKUP_PATHS}
+	zip -r "$backup_name" "${backup_paths[@]}"
 	game_command save-on
 
-	aws s3 cp ${backup_name} s3://whsminecraft-backups
-	rm ${backup_name}
+	aws s3 cp "$backup_name" s3://whsminecraft-backups
+	rm "$backup_name"
 }
 
 # Restore the server from a selected backup
@@ -103,7 +103,7 @@ server_restore() {
 	aws s3 cp "s3://whsminecraft-backups/$bk" .
 
 	server_stop
-	rm -rf ${BACKUP_PATHS}
+	rm -rf "${backup_paths[@]}"
 	unzip "$bk"
 	rm "$bk"
 	server_start
