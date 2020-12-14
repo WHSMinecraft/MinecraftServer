@@ -25,7 +25,7 @@ GriefPrevention:
     Claim Blocks Accrued Per Hour:
       Default: 200
     Max Accrued Claim Blocks:
-      Default: 10000
+      Default: 20000
     Accrued Idle Threshold: 0
     AccruedIdlePercent: 0
     AbandonReturnRatio: 1.0
