@@ -121,7 +121,10 @@ help() {
 	    backup              	Backup the world data
 	    restore			Select a backup to restore and restart the server
 
-	    command|cmd <command>    	Run the given command at the server console
+	    command <command>		Run the given command at the server console
+	    cmd <command>
+	    /<command>
+
 	    console              	Enter the server console through a screen session
 
 	EOF
@@ -142,6 +145,10 @@ case "${1:-}" in
 
 	command|cmd)
 	server_command "${@:2}"
+	;;
+
+	/*)
+	server_command "${1:1}" "${@:2}"
 	;;
 
 	backup)
