@@ -130,6 +130,7 @@ world-settings:
     enable-treasure-maps: true
     treasure-maps-return-already-discovered: false
     game-mechanics:
+      fix-curing-zombie-villager-discount-exploit: false
       scan-for-legacy-ender-dragon: true
       disable-pillager-patrols: false
       disable-unloaded-chunk-enderpearl-exploit: true
