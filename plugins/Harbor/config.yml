@@ -49,6 +49,10 @@ messages:
       - "&eDie Nacht wurde übersprungen"
       - "&eAhhh, endlich Morgen."
       - "&eArghh, draußen ist es so hell."
+      - "&eRise and shine, Mr Freeman."
+      - "&eRise and shine."
+      - "&eRise and shine."
+      - "&eRise and shine."
       - "&eRise and shine."
   actionbar:
     enabled: false
