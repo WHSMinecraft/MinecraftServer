@@ -173,7 +173,9 @@ Formatting:
 # World aliases can be used to rename worlds and to combine multiple worlds into a group.
 # -----------------------------------------------------
 World_aliases:
-    world: world
+    world: Overworld
+    world_nether: Nether
+    world_the_end: End
 # -----------------------------------------------------
 # These settings will make Plan write .js, .css, .json and .html files to some location on disk.
 # Relative path will render to /plugins/Plan/path
