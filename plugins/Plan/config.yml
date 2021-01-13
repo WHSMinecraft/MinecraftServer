@@ -4,7 +4,7 @@
 # https://github.com/Rsl1122/Plan-PlayerAnalytics/wiki/Bukkit-Configuration
 # -----------------------------------------------------
 Server:
-    ServerName: WHS Minecraft
+    ServerName: Survival
 # -----------------------------------------------------
 Plugin:
     Logging:
@@ -25,13 +25,13 @@ Plugin:
 # Supported databases: SQLite, H2, MySQL
 # -----------------------------------------------------
 Database:
-    Type: SQLite
+    Type: MySQL
     MySQL:
         Host: localhost
         Port: 3306
-        User: root
-        Password: minecraft
-        Database: Plan
+        User: minecraft-plan
+        Password: IN0yEUTeheLB
+        Database: plan_player_analytics
         # Launch options to append after mysql driver address
         Launch_options: "?rewriteBatchedStatements=true&useSSL=false&serverTimezone=UTC"
     H2:
