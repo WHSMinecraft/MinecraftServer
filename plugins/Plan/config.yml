@@ -65,8 +65,23 @@ Webserver:
             Whitelist:
               - "192.168.0.0"
               - "0:0:0:0:0:0:0:1"
+        # Allows using the whitelist with a reverse-proxy.
+        # ! Make sure non-proxy access is not possible, it would allow IP spoofing !
+        Use_X-Forwarded-For_Header: false
+        # Does not affect existing cookies
+        Cookies_expire_after: 2
+            Unit: HOURS
     Disable_Webserver: false
     External_Webserver_address: https://www.example.address
+    Cache:
+        Reduced_refresh_barrier: 15
+            Unit: SECONDS
+        Invalidate_query_results_on_disk_after: 7
+            Unit: DAYS
+        Invalidate_disk_cache_after: 2
+            Unit: DAYS
+        Invalidate_memory_cache_after: 5
+            Unit: MINUTES
 # -----------------------------------------------------
 Data_gathering:
     Geolocations: true
@@ -219,28 +234,37 @@ Plugins:
 # The files are placed in /Plan/web/ if the setting is 'true' when accessed.
 Customized_files:
     Plan:
+        css/login,css: false
         css/noauth,css: false
+        css/querybutton,css: false
         css/sb-admin-2,css: false
         css/style,css: false
         error,html: false
         favicon,ico: false
         img/Flaticon_circle,png: false
         js/color-selector,js: false
+        js/domUtils,js: false
+        js/filters,js: false
         js/graphs,js: false
         js/logonsine,js: false
         js/pingTable,js: false
         js/player-values,js: false
+        js/query,js: false
         js/sb-admin-2,js: false
         js/server-values,js: false
         js/sessionAccordion,js: false
         js/xmlhttprequests,js: false
         login,html: false
         player,html: false
+        players,html: false
+        query,html: false
         register,html: false
         robots,txt: false
         server,html: false
         vendor/bootstrap/js/bootstrap,bundle,min,js: false
         vendor/datatables/dataTables,bootstrap4,min,js: false
+        vendor/datatables/datatables,min,css: false
+        vendor/datatables/datatables,min,js: false
         vendor/datatables/jquery,dataTables,min,js: false
         vendor/fontawesome-free/css/all,min,css: false
         vendor/fontawesome-free/webfonts/fa-brands-400,woff2: false
