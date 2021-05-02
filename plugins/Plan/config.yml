@@ -33,7 +33,7 @@ Database:
         Password: IN0yEUTeheLB
         Database: plan_player_analytics
         # Launch options to append after mysql driver address
-        Launch_options: "?rewriteBatchedStatements=true&useSSL=false&serverTimezone=UTC"
+        Launch_options: "?rewriteBatchedStatements=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
     H2:
         User: root
         Password: minecraft
