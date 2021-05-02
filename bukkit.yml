@@ -13,16 +13,16 @@
 
 
 spawn-limits:
-  monsters: 50
-  animals: 8
+  monsters: 150
+  animals: 15
   water-animals: 15
   water-ambient: 3
-  ambient: 1
+  ambient: 15
 chunk-gc:
   period-in-ticks: 400
 ticks-per:
   animal-spawns: 400
-  monster-spawns: 2
+  monster-spawns: 1
   water-spawns: 1
   water-ambient-spawns: 1
   ambient-spawns: 1
