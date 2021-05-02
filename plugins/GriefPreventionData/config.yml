@@ -100,7 +100,7 @@ GriefPrevention:
   BlockLandClaimExplosions: true
   BlockSurfaceCreeperExplosions: true
   BlockSurfaceOtherExplosions: true
-  LimitSkyTrees: true
+  LimitSkyTrees: false
   LimitTreeGrowth: false
   PistonMovement: EVERYWHERE_SIMPLE
   PistonExplosionSound: true
