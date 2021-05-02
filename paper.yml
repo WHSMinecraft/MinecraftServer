@@ -10,9 +10,11 @@
 # Website: https://papermc.io/ 
 # Docs: https://paper.readthedocs.org/ 
 
+use-display-name-in-quit-message: false
 verbose: false
 config-version: 20
 settings:
+  fix-entity-position-desync: true
   load-permissions-yml-before-plugins: true
   bungee-online-mode: true
   console-has-all-permissions: false
@@ -48,6 +50,8 @@ settings:
     early-warning-every: 5000
     early-warning-delay: 10000
   spam-limiter:
+    recipe-spam-increment: 1
+    recipe-spam-limit: 20
     tab-spam-increment: 1
     tab-spam-limit: 500
   book-size:
@@ -70,11 +74,21 @@ timings:
   hidden-config-entries:
   - database
   - settings.bungeecord-addresses
+  - settings.velocity-support.secret
   history-interval: 300
   history-length: 3600
   server-name: Unknown Server
 world-settings:
   default:
+    ender-dragons-death-always-places-dragon-egg: false
+    allow-using-signs-inside-spawn-protection: false
+    update-pathfinding-on-block-update: true
+    fix-wither-targeting-bug: false
+    only-players-collide: false
+    allow-vehicle-collisions: true
+    max-leash-distance: 10.0
+    portal-search-vanilla-dimension-scaling: true
+    fix-climbing-bypassing-cramming-rule: false
     should-remove-dragon: false
     seed-based-feature-search: true
     baby-zombie-movement-modifier: 0.5
@@ -130,6 +144,7 @@ world-settings:
     enable-treasure-maps: true
     treasure-maps-return-already-discovered: false
     game-mechanics:
+      disable-mob-spawner-spawn-egg-transformation: false
       fix-curing-zombie-villager-discount-exploit: false
       scan-for-legacy-ender-dragon: true
       disable-pillager-patrols: false
@@ -152,6 +167,9 @@ world-settings:
     max-growth-height:
       cactus: 3
       reeds: 3
+      bamboo:
+        max: 16
+        min: 11
     fishing-time-range:
       MinimumTicks: 100
       MaximumTicks: 600
@@ -184,6 +202,7 @@ world-settings:
     generator-settings:
       flat-bedrock: false
     anti-xray:
+      use-permission: false
       enabled: false
       engine-mode: 1
       max-chunk-section-index: 3
@@ -215,3 +234,17 @@ world-settings:
       spawn-chance-failure-increment: 25
       spawn-chance-min: 25
       spawn-chance-max: 75
+    entity-per-chunk-save-limit:
+      experience_orb: -1
+      snowball: -1
+      ender_pearl: -1
+      arrow: -1
+    mobs-can-always-pick-up-loot:
+      zombies: false
+      skeletons: false
+    door-breaking-difficulty:
+      zombie:
+      - HARD
+      vindicator:
+      - NORMAL
+      - HARD
