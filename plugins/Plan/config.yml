@@ -279,4 +279,5 @@ Customized_files:
         vendor/highcharts/no-data-to-display,js: false
         vendor/highcharts/world,js: false
         vendor/jquery/jquery,min,js: false
+        vendor/masonry/masonry,pkgd,min,js: false
         vendor/momentjs/moment,js: false

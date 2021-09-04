@@ -12,8 +12,9 @@
 
 use-display-name-in-quit-message: false
 verbose: false
-config-version: 20
+config-version: 21
 settings:
+  log-named-entity-deaths: true
   fix-entity-position-desync: true
   load-permissions-yml-before-plugins: true
   bungee-online-mode: true
@@ -59,6 +60,20 @@ settings:
     total-multiplier: 0.98
   async-chunks:
     threads: -1
+  console:
+    enable-brigadier-highlighting: true
+    enable-brigadier-completions: true
+  loggers:
+    deobfuscate-stacktraces: true
+  item-validation:
+    display-name: 8192
+    loc-name: 8192
+    lore-line: 8192
+    book:
+      title: 8192
+      author: 8192
+      page: 16384
+  use-display-name-in-quit-message: false
 messages:
   no-permission: '&cI''m sorry, but you do not have permission to perform this command.
     Please contact the server administrators if you believe that this is in error.'
@@ -68,6 +83,7 @@ messages:
     flying-player: Flying is not enabled on this server
     flying-vehicle: Flying is not enabled on this server
 timings:
+  url: https://timings.aikar.co/
   enabled: true
   verbose: true
   server-name-privacy: false
@@ -80,6 +96,13 @@ timings:
   server-name: Unknown Server
 world-settings:
   default:
+    piglins-guard-chests: true
+    map-item-frame-cursor-update-interval: 10
+    allow-player-cramming-damage: false
+    show-sign-click-command-failure-msgs-to-player: false
+    seed-based-feature-search-loads-chunks: true
+    map-item-frame-cursor-limit: 128
+    fix-items-merging-through-walls: false
     ender-dragons-death-always-places-dragon-egg: false
     allow-using-signs-inside-spawn-protection: false
     update-pathfinding-on-block-update: true
@@ -202,6 +225,7 @@ world-settings:
     generator-settings:
       flat-bedrock: false
     anti-xray:
+      max-block-height: 64
       use-permission: false
       enabled: false
       engine-mode: 1
@@ -235,6 +259,8 @@ world-settings:
       spawn-chance-min: 25
       spawn-chance-max: 75
     entity-per-chunk-save-limit:
+      fireball: -1
+      small_fireball: -1
       experience_orb: -1
       snowball: -1
       ender_pearl: -1
@@ -248,3 +274,24 @@ world-settings:
       vindicator:
       - NORMAL
       - HARD
+    spawn-limits:
+      monsters: -1
+      animals: -1
+      water-animals: -1
+      water-ambient: -1
+      ambient: -1
+    unsupported-settings:
+      fix-invulnerable-end-crystal-exploit: true
+    mob-effects:
+      undead-immune-to-certain-effects: true
+      spiders-immune-to-poison-effect: true
+      immune-to-wither-effect:
+        wither: true
+        wither-skeleton: true
+    tick-rates:
+      sensor:
+        villager:
+          secondarypoisensor: 40
+      behavior:
+        villager:
+          validatenearbypoi: -1
