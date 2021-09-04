@@ -29,7 +29,9 @@ fi
 # Using aikar's flags
 # https://aikar.co/2018/07/02/tuning-the-jvm-g1gc-garbage-collector-flags-for-minecraft/
 
-java -Xms${gigs}G -Xmx${gigs}G -XX:+UseG1GC -XX:+ParallelRefProcEnabled \
+
+java --class-path /usr/share/java/mariadb-jdbc/mariadb-java-client.jar: \
+	-Xms${gigs}G -Xmx${gigs}G -XX:+UseG1GC -XX:+ParallelRefProcEnabled \
 	-XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions \
 	-XX:+DisableExplicitGC -XX:+AlwaysPreTouch \
 	-XX:G1NewSizePercent=${newsizepercent} -XX:G1MaxNewSizePercent=${maxnewsizepercent} \
