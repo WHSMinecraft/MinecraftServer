@@ -20,7 +20,7 @@ Plugin:
         Check_for_updates: true
         Notify_about_DEV_releases: false
     Configuration:
-        Allow_proxy_to_manage_settings: true
+        Allow_proxy_to_manage_settings: false
 # -----------------------------------------------------
 # Supported databases: SQLite, H2, MySQL
 # -----------------------------------------------------
@@ -34,9 +34,7 @@ Database:
         Database: plan_player_analytics
         # Launch options to append after mysql driver address
         Launch_options: "?rewriteBatchedStatements=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
-    H2:
-        User: root
-        Password: minecraft
+        Max_connections: 8
 # -----------------------------------------------------
 # More information about SSL Certificate Settings:
 # https://github.com/Rsl1122/Plan-PlayerAnalytics/wiki/SSL-Certificate-%28HTTPS%29-Set-Up
@@ -119,7 +117,7 @@ Time:
         # Includes players online, tps and performance time series
         Remove_time_series_data_after: 90
             Unit: DAYS
-        Remove_ping_data_after: 14
+        Remove_ping_data_after: 90
             Unit: DAYS
         Remove_disabled_extension_data_after: 2
             Unit: DAYS
