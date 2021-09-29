@@ -7,7 +7,7 @@ cd "${0%/*}"
 
 
 # Java uses additional memory on top of this value
-gigs=24
+gigs=4
 
 
 
